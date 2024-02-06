@@ -1,7 +1,6 @@
 import { getSingleFileProgram } from './parser'
 import { convertAST } from './convert'
 import { InputVc2cOptions, getDefaultVc2cOptions, mergeVc2cOptions } from './options'
-import { format } from './format'
 import path from 'path'
 import { readVueSFCOrTsFile, existsFileSync, FileInfo } from './file'
 import { setDebugMode } from './debug'
@@ -11,7 +10,7 @@ export function convert (content: string, inputOptions: InputVc2cOptions): strin
   const options = mergeVc2cOptions(getDefaultVc2cOptions(inputOptions.typescript), inputOptions)
   const { ast, program } = getSingleFileProgram(content, options)
 
-  return format(convertAST(ast, options, program), options)
+  return convertAST(ast, options, program)
 }
 
 export function convertFile (filePath: string, root: string, config: string): { file: FileInfo, result: string } {
